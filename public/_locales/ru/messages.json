@@ -1,0 +1,10 @@
+{
+  "extension_name": {"message": "Открыть инкогнито"},
+  "extension_description": {"message": "Инструменты для открытия вкладок в режиме инкогнито"},
+  "button_new_tab": {"message": "Открыть новую вкладку"},
+  "button_current_tab": {"message": "Открыть текущую вкладку"},
+  "button_clear_tab": {"message": "Открыть текущую + удалить историю сайта"},
+  "button_clear_tab_30": {"message": "Открыть текущую + удалить историю 30 мин"},
+  "extension_title": { "message": "Открыть инкогнито" },
+  "extension_header": { "message": "Инструменты инкогнито" }
+}

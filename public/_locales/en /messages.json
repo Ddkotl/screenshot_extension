@@ -1,0 +1,10 @@
+{
+  "extension_name": { "message": "Open Incognito" },
+  "extension_description": { "message": "Tools for opening tabs in incognito mode" },
+  "button_new_tab": { "message": "Open New Tab" },
+  "button_current_tab": { "message": "Open Current Tab" },
+  "button_clear_tab": { "message": "Open Current + Clear Site History" },
+  "button_clear_tab_30": { "message": "Open Current + Clear History 30 min" },
+  "extension_title": { "message": "Open Incognito" },
+  "extension_header": { "message": "Incognito Tools" }
+}
