@@ -1,0 +1,10 @@
+{
+  "extension_name": { "message": "打开隐身模式" },
+  "extension_description": { "message": "用于打开隐身标签页的工具" },
+  "button_new_tab": { "message": "打开新标签页" },
+  "button_current_tab": { "message": "打开当前标签页" },
+  "button_clear_tab": { "message": "打开当前标签页 + 删除网站历史" },
+  "button_clear_tab_30": { "message": "打开当前标签页 + 删除30分钟历史" },
+  "extension_title": { "message": "打开隐身模式" },
+  "extension_header": { "message": "隐身工具" }
+}
