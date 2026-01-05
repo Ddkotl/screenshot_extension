@@ -3,6 +3,7 @@
 /**
  * Сообщение от content script
  */
+console.log("BACKGROUND SCRIPT LOADED");
 interface CaptureMessage {
   action: "capture";
   rect: {

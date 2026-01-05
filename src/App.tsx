@@ -4,9 +4,14 @@ import { Button } from "./components/ui/button";
 
 export default function App() {
     async function handleClick() {
+        console.log("Button clicked");
         const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
         console.log(tab)
         if (tab.id) {
+            await chrome.scripting.executeScript({
+                target: { tabId: tab.id },
+                files: ["content.js"]
+            });
             chrome.tabs.sendMessage(tab.id, { action: "start-selection" });
         }
     }

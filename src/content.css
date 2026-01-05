@@ -3,11 +3,11 @@
   position: fixed;
   inset: 0;
   cursor: crosshair;
-  background: rgba(0,0,0,0.1);
+  background: rgba(206, 209, 4, 0.774);
   z-index: 2147483647;
 }
 #selection {
   position: absolute;
-  border: 2px solid #4a90e2;
-  background: rgba(74,144,226,0.2);
+  border: 2px solid #97b31f;
+  background: rgb(231, 233, 235);
 }

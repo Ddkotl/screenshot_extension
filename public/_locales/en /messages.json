@@ -1,5 +1,5 @@
 {
-  "extension_name": { "message": "Скриншот" },
+  "extension_name": { "message": "Screenshot" },
   "extension_description": { "message": "Tools for high-quality screenshots with area selection" },
   "make_screenshot": { "message": "Take Screenshot" },
   "select_area_instruction": { "message": "Select an area for the screenshot" },

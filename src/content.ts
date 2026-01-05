@@ -1,4 +1,5 @@
 import "./content.css";
+console.log("CONTENT SCRIPT LOADED");
 let isSelecting: boolean = false;
 
 let startX: number = 0;
