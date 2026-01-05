@@ -16,7 +16,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         // 1. Основное приложение (ваш попап или опции)
-        main: path.resolve(__dirname, "index.html"), 
+        main: path.resolve(__dirname, "index.html"),
         // 2. Ваши отдельные скрипты
         background: path.resolve(__dirname, "src/background.ts"),
         content: path.resolve(__dirname, "src/content.ts")
@@ -30,7 +30,14 @@ export default defineConfig({
           return 'assets/[name]-[hash].js'; // Для остальных файлов (интерфейса)
         },
         chunkFileNames: 'assets/[name]-[hash].js',
-        assetFileNames: 'assets/[name]-[hash].[ext]'
+        assetFileNames: (assetInfo) => {
+          // Если это CSS файл и он был импортирован из content.ts
+          // (Vite называет такие ассеты по имени входной точки)
+          if (assetInfo.name === 'content.css') {
+            return '[name].[ext]'; // Выведет dist/content.css
+          }
+          return 'assets/[name]-[hash].[ext]';
+        }
       }
     }
   }

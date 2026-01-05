@@ -1,3 +1,4 @@
+import "./content.css";
 let isSelecting: boolean = false;
 
 let startX: number = 0;
