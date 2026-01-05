@@ -10,7 +10,8 @@
     },
     "permissions": [
         "tabs",
-        "history"
+        "activeTab",
+        "scripting"
     ],
     "icons": {
         "128": "icon128.png"
