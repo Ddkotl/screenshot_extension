@@ -12,7 +12,7 @@ export default function App() {
     }
     return (
         <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-            <div className="p-2 mx-auto text-center flex flex-col justify-center max-w-md">
+            <div className="p-2 mx-auto text-center flex flex-col justify-center min-w-50">
                 <div className="flex items-center justify-center gap-2"><ModeToggle />{chrome.i18n.getMessage("extension_name")} </div>
                 <Button onClick={handleClick}>{chrome.i18n.getMessage("make_screenshot")}</Button>
             </div>
