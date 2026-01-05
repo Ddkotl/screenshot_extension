@@ -13,6 +13,23 @@
         "activeTab",
         "scripting"
     ],
+    "background": {
+        "service_worker": "background.js",
+        "type": "module"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "css": [
+                "index.css"
+            ]
+        }
+    ],
     "icons": {
         "128": "icon128.png"
     }
