@@ -1,21 +1,12 @@
 /// <reference lib="webworker" />
 
-/**
- * Сообщение от content script
- */
+import type { CaptureMessage } from "./types";
+
 console.log("BACKGROUND SCRIPT LOADED");
-interface CaptureMessage {
-  action: "capture";
-  rect: {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-  };
-}
 
 chrome.runtime.onMessage.addListener(
   (msg: CaptureMessage): void => {
+    console.log(msg);
     if (msg.action === "capture") {
       void handleCapture(msg);
     }
@@ -42,44 +33,18 @@ async function cropImage(
   base64: string,
   rect: { x: number; y: number; width: number; height: number }
 ): Promise<Blob> {
-  return new Promise<Blob>((resolve, reject) => {
-    const img: HTMLImageElement = new Image();
-    img.src = base64;
-
-    img.onload = () => {
-      const canvas: OffscreenCanvas = new OffscreenCanvas(
-        Math.round(rect.width),
-        Math.round(rect.height)
-      );
-
-      const ctx: OffscreenCanvasRenderingContext2D | null =
-        canvas.getContext("2d");
-
-      if (!ctx) {
-        reject(new Error("Cannot get 2D context"));
-        return;
-      }
-
-      ctx.drawImage(
-        img,
-        rect.x,
-        rect.y,
-        rect.width,
-        rect.height,
-        0,
-        0,
-        rect.width,
-        rect.height
-      );
-
-      canvas
-        .convertToBlob({ type: "image/png" })
-        .then(resolve)
-        .catch(reject);
-    };
-
-    img.onerror = () => reject(new Error("Failed to load image"));
-  });
+  const response = await fetch(base64);
+  const blob = await response.blob();
+  const bitmap: ImageBitmap = await createImageBitmap(blob);
+  const canvas = new OffscreenCanvas(Math.round(rect.width), Math.round(rect.height));
+  const ctx = canvas.getContext("2d");
+  if (!ctx) {
+    throw new Error("2d context not available");
+  }
+  ctx.drawImage(
+    bitmap, rect.x, rect.y, rect.width, rect.height, 0, 0, rect.width, rect.height
+  );
+  return canvas.convertToBlob({ type: "image/png" });
 }
 
 /**
