@@ -2,11 +2,12 @@
   position: fixed;
   inset: 0;
   cursor: crosshair;
-  background: rgba(23, 141, 96, 0.308);
+  /* background: rgba(23, 141, 96, 0.308); */
+  mix-blend-mode: difference;
   z-index: 2147483647;
 }
 #selection {
   position: absolute;
   border: 2px solid #0786ad;
-  background: rgba(79, 79, 80, 0);
+  background: rgba(13, 167, 64, 0.486);
 }

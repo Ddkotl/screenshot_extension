@@ -1,4 +1,3 @@
-import { toast } from "sonner";
 import "./content.css";
 import type { CaptureMessage, StartSelectionMessage } from "./types";
 declare global {
@@ -36,7 +35,7 @@ if (window.__screenshotExtensionContentScriptLoaded) {
                 [blob.type]: blob,
             });
             await navigator.clipboard.write([item]);
-            toast.success(chrome.i18n.getMessage("successful_screenshot"));
+
         }
     });
     function startSelectionMode(): void {
@@ -80,12 +79,12 @@ if (window.__screenshotExtensionContentScriptLoaded) {
     }
 
     function onMouseUp(): void {
-        if (!box) return;
+        if (!box || !overlay) return;
 
         isSelecting = false;
 
         const rect: DOMRect = box.getBoundingClientRect();
-
+        overlay.style.display = "none";
         const message: CaptureMessage = {
             action: "capture",
             rect: {
