@@ -3,7 +3,11 @@
 import type { CaptureMessage } from "./types";
 
 console.log("BACKGROUND SCRIPT LOADED");
-
+console.log("SW ENV CHECK", {
+  hasImage: typeof (globalThis as any).Image,
+  hasWindow: typeof (globalThis as any).window,
+  hasDocument: typeof (globalThis as any).document
+});
 chrome.runtime.onMessage.addListener(
   (msg: CaptureMessage): void => {
     console.log(msg);
@@ -18,10 +22,10 @@ async function handleCapture(msg: CaptureMessage): Promise<void> {
 
   // Делает скриншот текущей видимой вкладки (PNG base64)
   const imageBase64: string = await chrome.tabs.captureVisibleTab();
-
+  console.log("Captured image base64 length:", imageBase64.length);
   // Обрезаем по координатам
   const croppedBlob: Blob = await cropImage(imageBase64, rect);
-
+  console.log("Cropped image blob size:", croppedBlob.size);
   // Копируем в буфер
   await copyToClipboard(croppedBlob);
 }
