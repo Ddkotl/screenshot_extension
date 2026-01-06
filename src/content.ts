@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 import "./content.css";
 import type { CaptureMessage, StartSelectionMessage } from "./types";
 declare global {
@@ -20,26 +21,24 @@ if (window.__screenshotExtensionContentScriptLoaded) {
     let overlay: HTMLDivElement | null = null;
     let box: HTMLDivElement | null = null;
 
-
     chrome.runtime.onMessage.addListener(
         (msg: StartSelectionMessage, _sender, _sendResponse) => {
             if (msg.action === "start-selection") {
                 startSelectionMode();
             }
-        }
+        },
     );
-    chrome.runtime.onMessage.addListener(
-        async (msg) => {
-            if (msg.action === "copy-image") {
-                const response = await fetch(msg.base64);
-                const blob = await response.blob();
-                const item = new ClipboardItem({
-                    [blob.type]: blob
-                })
-                await navigator.clipboard.write([item])
-            }
+    chrome.runtime.onMessage.addListener(async (msg) => {
+        if (msg.action === "copy-image") {
+            const response = await fetch(msg.base64);
+            const blob = await response.blob();
+            const item = new ClipboardItem({
+                [blob.type]: blob,
+            });
+            await navigator.clipboard.write([item]);
+            toast.success(chrome.i18n.getMessage("successful_screenshot"));
         }
-    )
+    });
     function startSelectionMode(): void {
         if (overlay) return;
 
@@ -93,8 +92,8 @@ if (window.__screenshotExtensionContentScriptLoaded) {
                 x: rect.left,
                 y: rect.top,
                 width: rect.width,
-                height: rect.height
-            }
+                height: rect.height,
+            },
         };
 
         chrome.runtime.sendMessage(message);
@@ -110,5 +109,4 @@ if (window.__screenshotExtensionContentScriptLoaded) {
         overlay = null;
         box = null;
     }
-
 }

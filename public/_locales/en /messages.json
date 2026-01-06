@@ -1,8 +1,11 @@
 {
   "extension_name": { "message": "Screenshot" },
-  "extension_description": { "message": "Tools for high-quality screenshots with area selection" },
+  "extension_description": {
+    "message": "Tools for high-quality screenshots with area selection"
+  },
   "make_screenshot": { "message": "Take Screenshot" },
   "select_area_instruction": { "message": "Select an area for the screenshot" },
+  "successful_screenshot": { "message": "Screenshot taken and copied to clipboard!" },
   "copy_to_clipboard": { "message": "Copy to Clipboard" },
   "download_image": { "message": "Download Image" },
   "close": { "message": "Close" }

@@ -1,7 +1,7 @@
-import path from "path"
-import tailwindcss from "@tailwindcss/vite"
-import react from "@vitejs/plugin-react"
-import { defineConfig } from "vite"
+import path from "path";
+import tailwindcss from "@tailwindcss/vite";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -23,22 +23,22 @@ export default defineConfig({
       output: {
         // Убираем хеши из названий, чтобы пути в manifest.json всегда совпадали
         entryFileNames: (chunkInfo) => {
-          if (['background', 'content'].includes(chunkInfo.name)) {
-            return '[name].js';
+          if (["background", "content"].includes(chunkInfo.name)) {
+            return "[name].js";
           }
 
-          return 'assets/[name]-[hash].js'; // Для остальных файлов (интерфейса)
+          return "assets/[name]-[hash].js"; // Для остальных файлов (интерфейса)
         },
-        chunkFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: "assets/[name]-[hash].js",
         assetFileNames: (assetInfo) => {
           // Если это CSS файл и он был импортирован из content.ts
           // (Vite называет такие ассеты по имени входной точки)
-          if (assetInfo.name === 'content.css') {
-            return '[name].[ext]'; // Выведет dist/content.css
+          if (assetInfo.name === "content.css") {
+            return "[name].[ext]"; // Выведет dist/content.css
           }
-          return 'assets/[name]-[hash].[ext]';
-        }
-      }
-    }
-  }
-})
+          return "assets/[name]-[hash].[ext]";
+        },
+      },
+    },
+  },
+});

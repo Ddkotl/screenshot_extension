@@ -1,13 +1,13 @@
 export interface CaptureMessage {
-    action: "capture";
-    rect: {
-        x: number;
-        y: number;
-        width: number;
-        height: number;
-    };
+  action: "capture";
+  rect: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  };
 }
 
 export interface StartSelectionMessage {
-    action: "start-selection";
+  action: "start-selection";
 }

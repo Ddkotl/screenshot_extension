@@ -1,9 +1,12 @@
 {
-  "extension_name": {"message": "Screenshot"},
-  "extension_description": {"message": "Инструменты для качественных скриншотов с выбором области"},
-  "make_screenshot": {"message": "Сделать скрин"},
-  "select_area_instruction": {"message": "Выберите область для скриншота"},
-  "copy_to_clipboard": {"message": "Скопировать в буфер обмена"},
-  "download_image": {"message": "Скачать изображение"},
-  "close": {"message": "Закрыть"}
+  "extension_name": { "message": "Screenshot" },
+  "extension_description": {
+    "message": "Инструменты для качественных скриншотов с выбором области"
+  },
+  "make_screenshot": { "message": "Сделать скрин" },
+  "select_area_instruction": { "message": "Выберите область для скриншота" },
+  "successful_screenshot": { "message": "Скриншот сделан и скопирован в буфер обмена!" },
+  "copy_to_clipboard": { "message": "Скопировать в буфер обмена" },
+  "download_image": { "message": "Скачать изображение" },
+  "close": { "message": "Закрыть" }
 }
