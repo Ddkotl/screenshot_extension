@@ -55,7 +55,12 @@ async function cropImage(
  * Копирование изображения в буфер обмена
  */
 async function copyToClipboard(blob: Blob): Promise<void> {
-  await chrome.runtime.sendMessage({
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  if(!tab.id){
+    throw new Error("No active tab found");
+  }
+
+  await chrome.tabs.sendMessage(tab.id , {
     action: "copy-image",
     blob: blob
   });
