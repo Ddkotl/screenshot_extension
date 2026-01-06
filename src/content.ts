@@ -31,9 +31,10 @@ if (window.__screenshotExtensionContentScriptLoaded) {
     chrome.runtime.onMessage.addListener(
         async (msg) => {
             if (msg.action === "copy-image") {
-                const blob: Blob = msg.blob
+                const response = await fetch(msg.base64);
+                const blob = await response.blob();
                 const item = new ClipboardItem({
-                    "image/png": blob
+                    [blob.type]: blob
                 })
                 await navigator.clipboard.write([item])
             }

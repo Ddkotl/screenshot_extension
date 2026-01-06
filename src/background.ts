@@ -56,13 +56,19 @@ async function cropImage(
  */
 async function copyToClipboard(blob: Blob): Promise<void> {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  if(!tab.id){
-    throw new Error("No active tab found");
+
+  const reader = new FileReader()
+  reader.readAsDataURL(blob)
+  reader.onloadend = async () => {
+    if (!tab.id) {
+      throw new Error("No active tab found");
+    }
+    const base64data = reader.result
+    await chrome.tabs.sendMessage(tab.id, {
+      action: "copy-image",
+      base64: base64data
+    });
   }
 
-  await chrome.tabs.sendMessage(tab.id , {
-    action: "copy-image",
-    blob: blob
-  });
 }
 
