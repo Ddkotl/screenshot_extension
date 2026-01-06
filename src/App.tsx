@@ -27,7 +27,7 @@ export default function App() {
           <Title
             text={chrome.i18n.getMessage("extension_name")}
             align="left"
-            size="xl"
+            size="lg"
           />
           <ModeToggle />{" "}
         </div>
