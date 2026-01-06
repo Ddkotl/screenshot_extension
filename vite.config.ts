@@ -12,20 +12,24 @@ export default defineConfig({
     },
   },
   build: {
-    // Убираем build.lib, используем rollupOptions.input
     rollupOptions: {
       input: {
         // 1. Основное приложение (ваш попап или опции)
         main: path.resolve(__dirname, "index.html"),
         // 2. Ваши отдельные скрипты
         background: path.resolve(__dirname, "src/background.ts"),
-        content: path.resolve(__dirname, "src/content.ts")
+        content: path.resolve(__dirname, "src/content.ts"),
+        offscreenHTML: path.resolve(__dirname, "src/offscreen/offscreen.html"),
+        offscreen: path.resolve(__dirname, "src/offscreen/offscreen.ts"),
       },
       output: {
         // Убираем хеши из названий, чтобы пути в manifest.json всегда совпадали
         entryFileNames: (chunkInfo) => {
           if (['background', 'content'].includes(chunkInfo.name)) {
-            return '[name].js'; // Будет dist/background.js
+            return '[name].js'; 
+          }
+          if (["offscreen"].includes(chunkInfo.name)) {
+            return 'src/offscreen/[name].js';
           }
           return 'assets/[name]-[hash].js'; // Для остальных файлов (интерфейса)
         },

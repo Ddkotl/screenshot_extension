@@ -55,9 +55,19 @@ async function cropImage(
  * Копирование изображения в буфер обмена
  */
 async function copyToClipboard(blob: Blob): Promise<void> {
-  const clipboardItem: ClipboardItem = new ClipboardItem({
-    "image/png": blob
+  await ensureOffScreenDocument();
+  await chrome.runtime.sendMessage({
+    action: "copy-image",
+    blob: blob
   });
+}
 
-  await navigator.clipboard.write([clipboardItem]);
+async function ensureOffScreenDocument(): Promise<void> {
+  const isExist = await chrome.offscreen.hasDocument();
+  if (isExist) return;
+  await chrome.offscreen.createDocument({
+    url: "src/offscreen/offscreen.html",
+    reasons: ["CLIPBOARD"],
+    justification: "Copy screenshot image to clipboard"
+  })
 }
