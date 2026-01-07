@@ -94,7 +94,7 @@ export default function App() {
                 ).toLocaleString();
 
                 return (
-                  <Card key={s.id} className="p-1" >
+                  <Card key={s.id} className="p-1 gap-1" >
                     <CardHeader className="p-1">
                       <div className="text-xs text-muted-foreground truncate">
                         {formattedDate}
@@ -103,7 +103,7 @@ export default function App() {
                     <CardContent className="p-1 flex items-center justify-between gap-3">
                       <img
                         src={s.dataUrl}
-                        className="w-30 h-18 rounded object-cover border"
+                        className="w-30 h-18 rounded object-cover boder-2 border-primary outline-offset-4"
                       />
 
 
