@@ -71,7 +71,7 @@ export default function App() {
 
         {/* Section title */}
         <div className="flex items-center gap-2 text-sm font-medium">
-          <Image className="w-4 h-4" />
+          <Image className="w-4 h-4 text-primary" />
           {chrome.i18n.getMessage("last_screenshots")}
         </div>
 
@@ -94,25 +94,25 @@ export default function App() {
                 ).toLocaleString();
 
                 return (
-                  <Card key={s.id} className="p-1 gap-1" >
-                    <CardHeader className="p-1">
-                      <div className="text-xs text-muted-foreground truncate">
-                        {formattedDate}
-                      </div>
-                    </CardHeader>
-                    <CardContent className="p-1 flex items-center justify-between gap-3">
+                  <Card key={s.id} className="p-0 gap-1 flex flex-row items-center justify-between" >
+                    <CardHeader className="p-0">
                       <img
                         src={s.dataUrl}
-                        className="w-30 h-18 rounded object-cover boder-2 border-primary outline-offset-4"
+                        className="w-30 h-18 rounded object-cover boder-2 border-primary "
                       />
+                    </CardHeader>
+                    <CardContent className="p-1 flex flex-col gap-3">
 
+                      <div className="text-xs text-primary truncate">
+                        {formattedDate}
+                      </div>
 
                       <Button
                         size="icon"
                         variant="ghost"
                         onClick={() => download(s)}
                       >
-                        <Download className="w-4 h-4" />
+                        <Download className="w-4 h-4 text-primary" />
                       </Button>
                     </CardContent>
                   </Card>
