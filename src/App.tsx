@@ -2,10 +2,11 @@ import { ModeToggle } from "./components/mode-toggle";
 import { ThemeProvider } from "./components/theme-provider";
 import { Button } from "./components/ui/button";
 import { Title } from "./components/app-title";
-import { Card, CardContent } from "./components/ui/card";
+import { Card, CardContent, CardHeader } from "./components/ui/card";
 import { useEffect, useState } from "react";
 import type { StoredScreenshot } from "./types";
 import { Download, Image } from "lucide-react";
+import { ScrollArea } from "./components/ui/scroll-area";
 
 export default function App() {
   const [screenshots, setScreenshots] = useState<StoredScreenshot[]>([]);
@@ -85,38 +86,39 @@ export default function App() {
 
         {/* List */}
         {screenshots.length > 0 && (
-          <div className="flex flex-col gap-2">
-            {screenshots.map((s) => {
-              const formattedDate = new Date(
-                s.createdAt,
-              ).toLocaleString();
+          <ScrollArea className="h-60 pr-2">
+            <div className="flex flex-col gap-2">
+              {screenshots.map((s) => {
+                const formattedDate = new Date(
+                  s.createdAt,
+                ).toLocaleString();
 
-              return (
-                <Card key={s.id} className="hover:bg-muted/50 transition">
-                  <CardContent className="p-3 flex items-center gap-3">
-                    <img
-                      src={s.dataUrl}
-                      className="w-20 h-12 rounded object-cover border"
-                    />
-
-                    <div className="flex-1 min-w-0">
+                return (
+                  <Card key={s.id} >
+                    <CardHeader>
                       <div className="text-xs text-muted-foreground truncate">
                         {formattedDate}
                       </div>
-                    </div>
+                    </CardHeader>
+                    <CardContent className="p-3 flex items-center gap-3">
+                      <img
+                        src={s.dataUrl}
+                        className="w-30 h-18 rounded object-cover border"
+                      />
 
-                    <Button
-                      size="icon"
-                      variant="ghost"
-                      onClick={() => download(s)}
-                    >
-                      <Download className="w-4 h-4" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
+
+                      <Button
+                        size="icon"
+                        variant="ghost"
+                        onClick={() => download(s)}
+                      >
+                        <Download className="w-4 h-4" />
+                      </Button>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div></ScrollArea>
         )}
       </div>
     </ThemeProvider>
