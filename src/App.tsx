@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import type { StoredScreenshot } from "./types";
 import { Download, Image } from "lucide-react";
 import { ScrollArea } from "./components/ui/scroll-area";
+import { getLocalFormattedDate } from "./lib/format-date";
 
 export default function App() {
   const [screenshots, setScreenshots] = useState<StoredScreenshot[]>([]);
@@ -89,23 +90,21 @@ export default function App() {
           <ScrollArea className="h-60 pr-4">
             <div className="flex flex-col gap-2">
               {screenshots.map((s) => {
-                const formattedDate = new Date(
-                  s.createdAt,
-                ).toLocaleString();
+                const formattedDate = getLocalFormattedDate(new Date(s.createdAt))
 
                 return (
-                  <Card key={s.id} className="p-0 gap-1 flex flex-row items-center justify-between" >
-                    <CardHeader className="p-0">
-                      <img
-                        src={s.dataUrl}
-                        className="w-30 h-18 rounded object-cover boder-2 border-primary "
-                      />
-                    </CardHeader>
-                    <CardContent className="p-1 flex flex-col gap-3">
-
-                      <div className="text-xs text-primary truncate">
+                  <Card key={s.id} className="p-0 gap-1" >
+                    <CardHeader className="p-1">
+                      <div className="text-xs text-muted-foreground truncate text-primary">
                         {formattedDate}
                       </div>
+                    </CardHeader>
+                    <CardContent className="p-1 flex items-center justify-between gap-3">
+                      <img
+                        src={s.dataUrl}
+                        className="w-40 h-24 rounded object-cover boder-2 border-primary"
+                      />
+
 
                       <Button
                         size="icon"

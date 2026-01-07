@@ -14,8 +14,9 @@ async function handleCapture(msg: CaptureMessage): Promise<void> {
   // Делает скриншот текущей видимой вкладки (PNG base64)
   const imageBase64: string = await chrome.tabs.captureVisibleTab();
   // Обрезаем по координатам
-  const croppedBlob: Blob = await cropImage(imageBase64, rect);
+  const croppedBlob: Blob | undefined = await cropImage(imageBase64, rect);
   // Копируем в буфер
+  if (!croppedBlob) return
   await copyToClipboard(croppedBlob);
 }
 
@@ -25,12 +26,24 @@ async function handleCapture(msg: CaptureMessage): Promise<void> {
 async function cropImage(
   base64: string,
   rect: { x: number; y: number; width: number; height: number, devicePixelRatio?: number },
-): Promise<Blob> {
+) {
   const dpr = rect.devicePixelRatio || 1;
   const response = await fetch(base64);
   const blob = await response.blob();
   const bitmap: ImageBitmap = await createImageBitmap(blob);
 
+  if (rect.width <= 0 || rect.height <= 0) {
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    if (tab.id) {
+      chrome.tabs.sendMessage(tab.id, {
+        action: "show-toast",
+        message: chrome.i18n.getMessage("invalid_selection"), 
+        icon: "⚠️"
+      });
+    }
+
+    return;
+  }
   // Умножаем координаты на dpr
   const canvas = new OffscreenCanvas(
     Math.round(rect.width * dpr),

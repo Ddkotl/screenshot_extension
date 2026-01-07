@@ -1,15 +1,38 @@
 {
-  "extension_name": { "message": "Screenshot Master" },
+  "extension_name": {
+    "message": "Screenshot Master"
+  },
   "extension_description": {
     "message": "Tools for high-quality screenshots with area selection"
   },
-  "make_screenshot": { "message": "Take Screenshot" },
-  "select_area_instruction": { "message": "Select an area for the screenshot" },
-  "successful_screenshot": { "message": "Screenshot taken and copied to clipboard!" },
-  "copy_to_clipboard": { "message": "Copy to Clipboard" },
-  "download_image": { "message": "Download Image" },
-  "close": { "message": "Close" },
-  "unsupported_page": { "message": "This type of page is not supported for taking screenshots." },
-  "no_screenshots": { "message": "No screenshots yet." },
-  "last_screenshots": { "message": "Last Screenshots" }
+  "make_screenshot": {
+    "message": "Take Screenshot"
+  },
+  "select_area_instruction": {
+    "message": "Select an area for the screenshot"
+  },
+  "successful_screenshot": {
+    "message": "Screenshot taken and copied to clipboard!"
+  },
+  "copy_to_clipboard": {
+    "message": "Copy to Clipboard"
+  },
+  "download_image": {
+    "message": "Download Image"
+  },
+  "close": {
+    "message": "Close"
+  },
+  "unsupported_page": {
+    "message": "This type of page is not supported for taking screenshots."
+  },
+  "no_screenshots": {
+    "message": "No screenshots yet."
+  },
+  "last_screenshots": {
+    "message": "Last Screenshots"
+  },
+  "invalid_selection": {
+    "message": "Please select a valid area for the screenshot."
+  }
 }
