@@ -6,10 +6,8 @@ declare global {
     }
 }
 if (window.__screenshotExtensionContentScriptLoaded) {
-    console.log("Content script already loaded, skipping initialization.");
 } else {
     window.__screenshotExtensionContentScriptLoaded = true;
-    console.log("CONTENT SCRIPT LOADED");
     let isSelecting: boolean = false;
 
     let startX: number = 0;
@@ -21,6 +19,9 @@ if (window.__screenshotExtensionContentScriptLoaded) {
     let box: HTMLDivElement | null = null;
 
     chrome.runtime.onMessage.addListener(async (msg) => {
+        if (msg.action === "show-toast") {
+            showToast(msg.message, msg.icon);
+        }
         if (msg.action === "start-selection") {
             startSelectionMode();
         }
@@ -53,6 +54,9 @@ if (window.__screenshotExtensionContentScriptLoaded) {
         overlay.addEventListener("keydown", onKeyDown);
     }
     function onKeyDown(e: KeyboardEvent) {
+        if (!overlay) return;
+        overlay.tabIndex = -1;
+        overlay.focus();
         if (e.key === "Escape") cleanup();
     }
     function onMouseDown(event: MouseEvent): void {
@@ -104,7 +108,7 @@ if (window.__screenshotExtensionContentScriptLoaded) {
                     },
                 };
                 chrome.runtime.sendMessage(message);
-                showToast(chrome.i18n.getMessage("successful_screenshot"));
+                showToast(chrome.i18n.getMessage("successful_screenshot",), "✓");
             }, 50);
         });
     }
@@ -114,18 +118,16 @@ if (window.__screenshotExtensionContentScriptLoaded) {
         overlay?.remove();
         overlay = null;
         box = null;
-        window.removeEventListener("keydown", onKeyDown);
-        window.removeEventListener("mousemove", onMouseMove);
-        window.removeEventListener("mouseup", onMouseUp);
+
     }
 }
-function showToast(message: string): void {
+export function showToast(message: string, icon: string): void {
     const toast = document.createElement("div");
     toast.className = "screenshot-toast";
 
     // Добавляем иконку (галочку) и текст
     toast.innerHTML = `
-    <span class="screenshot-toast-icon">✓</span>
+    <span class="screenshot-toast-icon">${icon}</span>
     <span>${message}</span>
   `;
 

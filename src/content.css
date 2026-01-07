@@ -1,7 +1,7 @@
 :root {
   --brand-color: oklch(0.77 0.16 70);
   /* Ваш золотисто-песочный */
-  --overlay-bg: rgba(0, 0, 0, 0.1);
+  --overlay-bg: rgba(0, 0, 0, 0.5);
   --toast-bg: rgba(31, 41, 55, 0.85);
 }
 
