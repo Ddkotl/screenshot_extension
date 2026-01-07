@@ -127,3 +127,10 @@
     @apply font-sans;
   }
 }
+.bg-radial-primary {
+  background: radial-gradient(
+    circle at center,
+    color-mix(in oklch, var(--primary) 20%, transparent) 0%,
+    var(--background) 100%
+  );
+}

@@ -54,7 +54,7 @@ export default function App() {
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <div className="p-4 w-85 flex flex-col gap-4">
+      <div className="p-4 w-85 flex flex-col gap-4 bg-radial-primary">
         {/* Header */}
         <div className="flex items-center justify-between">
           <Title
@@ -102,7 +102,7 @@ export default function App() {
                     <CardContent className="p-1 flex items-center justify-around gap-3">
                       <img
                         src={s.dataUrl}
-                        className="w-40 h-20 rounded object-cover border-1 border-primary"
+                        className="w-40 h-20 rounded object-cover border border-primary"
                       />
 
 

@@ -40,7 +40,7 @@ if (window.__screenshotExtensionContentScriptLoaded) {
     });
     function startSelectionMode(): void {
         if (overlay) return;
-        document.body.style.overflow = "hidden"
+        // document.body.style.overflow = "hidden"
 
         overlay = document.createElement("div");
         overlay.id = "screenshot-overlay";
