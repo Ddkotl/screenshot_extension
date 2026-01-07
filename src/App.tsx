@@ -86,7 +86,7 @@ export default function App() {
 
         {/* List */}
         {screenshots.length > 0 && (
-          <ScrollArea className="h-60 pr-2">
+          <ScrollArea className="h-60 pr-4">
             <div className="flex flex-col gap-2">
               {screenshots.map((s) => {
                 const formattedDate = new Date(
@@ -94,13 +94,13 @@ export default function App() {
                 ).toLocaleString();
 
                 return (
-                  <Card key={s.id} >
-                    <CardHeader>
+                  <Card key={s.id} className="p-1" >
+                    <CardHeader className="p-1">
                       <div className="text-xs text-muted-foreground truncate">
                         {formattedDate}
                       </div>
                     </CardHeader>
-                    <CardContent className="p-3 flex items-center gap-3">
+                    <CardContent className="p-1 flex items-center justify-between gap-3">
                       <img
                         src={s.dataUrl}
                         className="w-30 h-18 rounded object-cover border"
