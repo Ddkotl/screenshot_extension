@@ -95,14 +95,14 @@ export default function App() {
                 return (
                   <Card key={s.id} className="p-0 gap-1" >
                     <CardHeader className="p-1">
-                      <div className="text-xs text-muted-foreground truncate text-primary">
+                      <div className="text-xs text-center truncate text-primary">
                         {formattedDate}
                       </div>
                     </CardHeader>
                     <CardContent className="p-1 flex items-center justify-around gap-3">
                       <img
                         src={s.dataUrl}
-                        className="w-40 h-30 rounded object-cover border-2 border-primary"
+                        className="w-40 h-20 rounded object-cover border-1 border-primary"
                       />
 
 
