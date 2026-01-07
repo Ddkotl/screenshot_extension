@@ -9,10 +9,12 @@ import { Download } from "lucide-react";
 export default function App() {
   const [screenshots, setScreenshots] = useState<StoredScreenshot[]>([]);
   useEffect(() => {
-    chrome.storage.local.get("screenshots").then(({ result }) => {
-      const data = result as { screenshots?: StoredScreenshot[] };
-      setScreenshots(data.screenshots ?? []);
-    });
+    const loadScreenshots = async () => {
+      const { screenshots = [] } = await chrome.storage.local.get("screenshots");
+      setScreenshots(screenshots as StoredScreenshot[]);
+    };
+
+    loadScreenshots();
   }, []);
   async function handleClick() {
     const [tab] = await chrome.tabs.query({
