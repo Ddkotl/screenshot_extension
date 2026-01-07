@@ -8,5 +8,6 @@
   "successful_screenshot": { "message": "Скриншот сделан и скопирован в буфер обмена!" },
   "copy_to_clipboard": { "message": "Скопировать в буфер обмена" },
   "download_image": { "message": "Скачать изображение" },
-  "close": { "message": "Закрыть" }
+  "close": { "message": "Закрыть" },
+  "unsupported_page": { "message": "Этот тип страницы не поддерживается для создания скриншотов." }
 }

@@ -1,5 +1,5 @@
 import "./content.css";
-import type { CaptureMessage, StartSelectionMessage } from "./types";
+import type { CaptureMessage } from "./types";
 declare global {
     interface Window {
         __screenshotExtensionContentScriptLoaded?: boolean;
@@ -20,14 +20,10 @@ if (window.__screenshotExtensionContentScriptLoaded) {
     let overlay: HTMLDivElement | null = null;
     let box: HTMLDivElement | null = null;
 
-    chrome.runtime.onMessage.addListener(
-        (msg: StartSelectionMessage, _sender, _sendResponse) => {
-            if (msg.action === "start-selection") {
-                startSelectionMode();
-            }
-        },
-    );
     chrome.runtime.onMessage.addListener(async (msg) => {
+        if (msg.action === "start-selection") {
+            startSelectionMode();
+        }
         if (msg.action === "copy-image") {
             const response = await fetch(msg.base64);
             const blob = await response.blob();
@@ -40,6 +36,7 @@ if (window.__screenshotExtensionContentScriptLoaded) {
     });
     function startSelectionMode(): void {
         if (overlay) return;
+        document.body.style.overflow = "hidden"
 
         overlay = document.createElement("div");
         overlay.id = "screenshot-overlay";
@@ -53,8 +50,11 @@ if (window.__screenshotExtensionContentScriptLoaded) {
         overlay.addEventListener("mousedown", onMouseDown);
         overlay.addEventListener("mousemove", onMouseMove);
         overlay.addEventListener("mouseup", onMouseUp);
+        overlay.addEventListener("keydown", onKeyDown);
     }
-
+    function onKeyDown(e: KeyboardEvent) {
+        if (e.key === "Escape") cleanup();
+    }
     function onMouseDown(event: MouseEvent): void {
         isSelecting = true;
         startX = event.clientX;
@@ -78,44 +78,45 @@ if (window.__screenshotExtensionContentScriptLoaded) {
         box.style.height = `${height}px`;
     }
 
-function onMouseUp(): void {
-    if (!box || !overlay) return;
+    function onMouseUp(): void {
+        if (!box || !overlay) return;
 
-    isSelecting = false;
-    const rect: DOMRect = box.getBoundingClientRect();
+        isSelecting = false;
+        const rect: DOMRect = box.getBoundingClientRect();
 
-    // 1. Полностью удаляем оверлей из DOM сразу
-    cleanup(); 
+        // 1. Полностью удаляем оверлей из DOM сразу
+        cleanup();
 
-    // 2. Даем браузеру время (requestAnimationFrame) перерисовать страницу без оверлея
-    requestAnimationFrame(() => {
-        // Дополнительная задержка в 50-100мс гарантирует, что "черная тень" исчезла
-        setTimeout(() => {
-            const message: CaptureMessage = {
-                action: "capture",
-                rect: {
-                    x: rect.left,
-                    y: rect.top,
-                    width: rect.width,
-                    height: rect.height,
-                    // Передаем devicePixelRatio, так как captureVisibleTab 
-                    // делает скриншот в физических пикселях
-                    devicePixelRatio: window.devicePixelRatio 
-                },
-            };
-            chrome.runtime.sendMessage(message);
-            showToast(chrome.i18n.getMessage("successful_screenshot"));
-        }, 50);
-    });
-}
+        // 2. Даем браузеру время (requestAnimationFrame) перерисовать страницу без оверлея
+        requestAnimationFrame(() => {
+            // Дополнительная задержка в 50-100мс гарантирует, что "черная тень" исчезла
+            setTimeout(() => {
+                const message: CaptureMessage = {
+                    action: "capture",
+                    rect: {
+                        x: rect.left,
+                        y: rect.top,
+                        width: rect.width,
+                        height: rect.height,
+                        // Передаем devicePixelRatio, так как captureVisibleTab 
+                        // делает скриншот в физических пикселях
+                        devicePixelRatio: window.devicePixelRatio
+                    },
+                };
+                chrome.runtime.sendMessage(message);
+                showToast(chrome.i18n.getMessage("successful_screenshot"));
+            }, 50);
+        });
+    }
 
     function cleanup(): void {
-        if (overlay) {
-            overlay.remove();
-        }
-
+        document.body.style.overflow = "";
+        overlay?.remove();
         overlay = null;
         box = null;
+        window.removeEventListener("keydown", onKeyDown);
+        window.removeEventListener("mousemove", onMouseMove);
+        window.removeEventListener("mouseup", onMouseUp);
     }
 }
 function showToast(message: string): void {

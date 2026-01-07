@@ -8,5 +8,6 @@
   "successful_screenshot": { "message": "截图已完成并已复制到剪贴板！" },
   "copy_to_clipboard": { "message": "复制到剪贴板" },
   "download_image": { "message": "下载图片" },
-  "close": { "message": "关闭" }
+  "close": { "message": "关闭" },
+  "unsupported_page": { "message": "此类页面不支持截图。" }
 }

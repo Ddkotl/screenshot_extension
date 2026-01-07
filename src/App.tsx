@@ -1,4 +1,4 @@
-import { Toaster } from "sonner";
+import { toast, Toaster } from "sonner";
 import { ModeToggle } from "./components/mode-toggle";
 import { ThemeProvider } from "./components/theme-provider";
 import { Button } from "./components/ui/button";
@@ -11,14 +11,20 @@ export default function App() {
       active: true,
       currentWindow: true,
     });
-    console.log(tab);
-    if (tab.id) {
-      await chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        files: ["content.js"],
-      });
-      chrome.tabs.sendMessage(tab.id, { action: "start-selection" });
+    if (!tab?.id || !tab.url) return;
+
+    if (tab.url.startsWith("chrome://") ||
+      tab.url.startsWith("edge://") ||
+      tab.url.startsWith("about:")) {
+      toast.error(chrome.i18n.getMessage("unsupported_page"), { position: "top-center" });
+      return;
     }
+
+    await chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      files: ["content.js"],
+    });
+    chrome.tabs.sendMessage(tab.id, { action: "start-selection" });
   }
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
