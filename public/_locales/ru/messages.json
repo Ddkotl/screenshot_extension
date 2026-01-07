@@ -10,5 +10,6 @@
   "download_image": { "message": "Скачать изображение" },
   "close": { "message": "Закрыть" },
   "unsupported_page": { "message": "Этот тип страницы не поддерживается для создания скриншотов." },
-  "no_screenshots": { "message": "Скриншотов пока нет." }
+  "no_screenshots": { "message": "Скриншотов пока нет." },
+  "last_screenshots": { "message": "Последние скриншоты" }
 }

@@ -10,5 +10,6 @@
   "download_image": { "message": "下载图片" },
   "close": { "message": "关闭" },
   "unsupported_page": { "message": "此类页面不支持截图。" },
-  "no_screenshots": { "message": "尚无截图。" }
+  "no_screenshots": { "message": "尚无截图。" },
+  "last_screenshots": { "message": "最近的截图" }
 }

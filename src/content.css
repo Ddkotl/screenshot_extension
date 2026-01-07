@@ -12,7 +12,6 @@
   cursor: crosshair;
   background: transparent;
   z-index: 2147483647;
-  overflow: hidden
 }
 
 /* Область выделения: эффект "прожектора" */
@@ -23,9 +22,9 @@
   background: transparent;
   /* Создает эффект выреза в темном фоне */
   box-shadow: 0 0 0 9999px var(--overlay-bg);
-    /* Чтобы клики не мешали, если нужно */
-  pointer-events: none; 
-  
+  /* Чтобы клики не мешали, если нужно */
+  pointer-events: none;
+
   /* Убираем outline, border достаточно */
   box-sizing: border-box;
 }
