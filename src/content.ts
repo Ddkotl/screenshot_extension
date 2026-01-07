@@ -1,4 +1,6 @@
 import "./content.css";
+import { saveScreenshot } from "./lib/save-screenshoot";
+import { showToast } from "./lib/show-toast";
 import type { CaptureMessage } from "./types";
 declare global {
     interface Window {
@@ -26,6 +28,7 @@ if (window.__screenshotExtensionContentScriptLoaded) {
             startSelectionMode();
         }
         if (msg.action === "copy-image") {
+            await saveScreenshot(msg.base64);
             const response = await fetch(msg.base64);
             const blob = await response.blob();
             const item = new ClipboardItem({
@@ -120,25 +123,4 @@ if (window.__screenshotExtensionContentScriptLoaded) {
         box = null;
 
     }
-}
-export function showToast(message: string, icon: string): void {
-    const toast = document.createElement("div");
-    toast.className = "screenshot-toast";
-
-    // Добавляем иконку (галочку) и текст
-    toast.innerHTML = `
-    <span class="screenshot-toast-icon">${icon}</span>
-    <span>${message}</span>
-  `;
-
-    document.body.appendChild(toast);
-
-    // Плавное появление (через микро-задержку для срабатывания transition)
-    setTimeout(() => toast.classList.add("show"), 10);
-
-    // Удаление через 3 секунды
-    setTimeout(() => {
-        toast.classList.remove("show");
-        setTimeout(() => toast.remove(), 300); // Ждем окончания анимации
-    }, 3000);
 }

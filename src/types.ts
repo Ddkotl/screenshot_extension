@@ -14,3 +14,9 @@ export interface CaptureMessage {
 export interface StartSelectionMessage {
   action: "start-selection";
 }
+export type StoredScreenshot = {
+  id: string;
+  createdAt: number;
+  mime: "image/png";
+  dataUrl: string; // base64
+};

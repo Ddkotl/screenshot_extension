@@ -9,5 +9,6 @@
   "copy_to_clipboard": { "message": "复制到剪贴板" },
   "download_image": { "message": "下载图片" },
   "close": { "message": "关闭" },
-  "unsupported_page": { "message": "此类页面不支持截图。" }
+  "unsupported_page": { "message": "此类页面不支持截图。" },
+  "no_screenshots": { "message": "尚无截图。" }
 }

@@ -9,5 +9,6 @@
   "copy_to_clipboard": { "message": "Скопировать в буфер обмена" },
   "download_image": { "message": "Скачать изображение" },
   "close": { "message": "Закрыть" },
-  "unsupported_page": { "message": "Этот тип страницы не поддерживается для создания скриншотов." }
+  "unsupported_page": { "message": "Этот тип страницы не поддерживается для создания скриншотов." },
+  "no_screenshots": { "message": "Скриншотов пока нет." }
 }

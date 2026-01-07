@@ -9,5 +9,6 @@
   "copy_to_clipboard": { "message": "Copy to Clipboard" },
   "download_image": { "message": "Download Image" },
   "close": { "message": "Close" },
-  "unsupported_page": { "message": "This type of page is not supported for taking screenshots." }
+  "unsupported_page": { "message": "This type of page is not supported for taking screenshots." },
+  "no_screenshots": { "message": "No screenshots yet." }
 }
