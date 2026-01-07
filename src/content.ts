@@ -78,27 +78,36 @@ if (window.__screenshotExtensionContentScriptLoaded) {
         box.style.height = `${height}px`;
     }
 
-    function onMouseUp(): void {
-        if (!box || !overlay) return;
+function onMouseUp(): void {
+    if (!box || !overlay) return;
 
-        isSelecting = false;
+    isSelecting = false;
+    const rect: DOMRect = box.getBoundingClientRect();
 
-        const rect: DOMRect = box.getBoundingClientRect();
-        overlay.style.display = "none";
-        const message: CaptureMessage = {
-            action: "capture",
-            rect: {
-                x: rect.left,
-                y: rect.top,
-                width: rect.width,
-                height: rect.height,
-            },
-        };
+    // 1. Полностью удаляем оверлей из DOM сразу
+    cleanup(); 
 
-        chrome.runtime.sendMessage(message);
-        showToast(chrome.i18n.getMessage("successful_screenshot"));
-        cleanup();
-    }
+    // 2. Даем браузеру время (requestAnimationFrame) перерисовать страницу без оверлея
+    requestAnimationFrame(() => {
+        // Дополнительная задержка в 50-100мс гарантирует, что "черная тень" исчезла
+        setTimeout(() => {
+            const message: CaptureMessage = {
+                action: "capture",
+                rect: {
+                    x: rect.left,
+                    y: rect.top,
+                    width: rect.width,
+                    height: rect.height,
+                    // Передаем devicePixelRatio, так как captureVisibleTab 
+                    // делает скриншот в физических пикселях
+                    devicePixelRatio: window.devicePixelRatio 
+                },
+            };
+            chrome.runtime.sendMessage(message);
+            showToast(chrome.i18n.getMessage("successful_screenshot"));
+        }, 50);
+    });
+}
 
     function cleanup(): void {
         if (overlay) {

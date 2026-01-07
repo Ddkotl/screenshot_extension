@@ -5,6 +5,7 @@ export interface CaptureMessage {
     y: number;
     width: number;
     height: number;
+    devicePixelRatio?: number;
   };
 }
 

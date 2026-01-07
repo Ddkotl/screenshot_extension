@@ -22,7 +22,7 @@ export default function App() {
   }
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <div className="p-2 mx-auto text-center flex flex-col justify-center min-w-50">
+      <div className="p-4 mx-auto text-center flex flex-col gap-4 justify-center min-w-50">
         <div className="flex items-center justify-between gap-2">
           <Title
             text={chrome.i18n.getMessage("extension_name")}

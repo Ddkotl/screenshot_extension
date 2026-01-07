@@ -33,29 +33,32 @@ async function handleCapture(msg: CaptureMessage): Promise<void> {
  */
 async function cropImage(
   base64: string,
-  rect: { x: number; y: number; width: number; height: number },
+  rect: { x: number; y: number; width: number; height: number, devicePixelRatio?: number },
 ): Promise<Blob> {
+  const dpr = rect.devicePixelRatio || 1;
   const response = await fetch(base64);
   const blob = await response.blob();
   const bitmap: ImageBitmap = await createImageBitmap(blob);
+
+  // Умножаем координаты на dpr
   const canvas = new OffscreenCanvas(
-    Math.round(rect.width),
-    Math.round(rect.height),
+    Math.round(rect.width * dpr),
+    Math.round(rect.height * dpr),
   );
+  
   const ctx = canvas.getContext("2d");
-  if (!ctx) {
-    throw new Error("2d context not available");
-  }
+  if (!ctx) throw new Error("2d context not available");
+
   ctx.drawImage(
     bitmap,
-    rect.x,
-    rect.y,
-    rect.width,
-    rect.height,
+    rect.x * dpr,
+    rect.y * dpr,
+    rect.width * dpr,
+    rect.height * dpr,
     0,
     0,
-    rect.width,
-    rect.height,
+    rect.width * dpr,
+    rect.height * dpr,
   );
   return canvas.convertToBlob({ type: "image/png" });
 }
