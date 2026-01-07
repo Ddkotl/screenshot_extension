@@ -15,12 +15,7 @@ export default function App() {
     if (tab.url.startsWith("chrome://") ||
       tab.url.startsWith("edge://") ||
       tab.url.startsWith("about:") || tab.url.startsWith("chrome-extension://")) {
-      chrome.notifications.create({
-        type: "basic",
-        iconUrl: "icons/icon128.png",
-        title: chrome.i18n.getMessage("extension_name"),
-        message: chrome.i18n.getMessage("unsupported_page"),
-      });
+      alert(chrome.i18n.getMessage("unsupported_page"));
       return;
     }
     await chrome.scripting.executeScript({
