@@ -32,18 +32,7 @@ async function cropImage(
   const blob = await response.blob();
   const bitmap: ImageBitmap = await createImageBitmap(blob);
 
-  if (rect.width <= 0 || rect.height <= 0) {
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    if (tab.id) {
-      chrome.tabs.sendMessage(tab.id, {
-        action: "show-toast",
-        message: chrome.i18n.getMessage("invalid_selection"), 
-        icon: "⚠️"
-      });
-    }
 
-    return;
-  }
   // Умножаем координаты на dpr
   const canvas = new OffscreenCanvas(
     Math.round(rect.width * dpr),

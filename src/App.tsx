@@ -99,10 +99,10 @@ export default function App() {
                         {formattedDate}
                       </div>
                     </CardHeader>
-                    <CardContent className="p-1 flex items-center justify-between gap-3">
+                    <CardContent className="p-1 flex items-center justify-around gap-3">
                       <img
                         src={s.dataUrl}
-                        className="w-40 h-24 rounded object-cover boder-2 border-primary"
+                        className="w-40 h-30 rounded object-cover border-2 border-primary"
                       />
 
 

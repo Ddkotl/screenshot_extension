@@ -110,8 +110,12 @@ if (window.__screenshotExtensionContentScriptLoaded) {
                         devicePixelRatio: window.devicePixelRatio
                     },
                 };
+                if (rect.width <= 0 || rect.height <= 0) {
+                    showToast(chrome.i18n.getMessage("invalid_selection"), "⚠️");
+                    return;
+                }
                 chrome.runtime.sendMessage(message);
-                showToast(chrome.i18n.getMessage("successful_screenshot",), "✓");
+                showToast(chrome.i18n.getMessage("successful_screenshot"), "✓");
             }, 50);
         });
     }
