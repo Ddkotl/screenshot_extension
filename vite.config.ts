@@ -30,12 +30,12 @@ export default defineConfig({
           return "assets/[name]-[hash].js"; // Для остальных файлов (интерфейса)
         },
         chunkFileNames: "assets/[name]-[hash].js",
-        assetFileNames: () => {
+        assetFileNames: (assetInfo) => {
           // Если это CSS файл и он был импортирован из content.ts
           // (Vite называет такие ассеты по имени входной точки)
-          // if (assetInfo.name === "content.css") {
-          //   return "[name].[ext]"; 
-          // }
+          if (assetInfo.name === "content.css") {
+            return "[name].[ext]"; // Выведет dist/content.css
+          }
           return "assets/[name]-[hash].[ext]";
         },
       },
