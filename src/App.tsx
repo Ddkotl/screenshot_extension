@@ -43,13 +43,21 @@ export default function App() {
       files: ["content.js"],
     });
     await new Promise<void>((resolve) => {
-      const listener = (msg: any, sender: chrome.runtime.MessageSender) => {
-        if (msg.action === "content-ready" && sender.tab?.id === tab.id) {
+      const listener = (
+        msg: any,
+        sender: chrome.runtime.MessageSender
+      ) => {
+        if (
+          msg.action === "content-ready" &&
+          sender.tab?.id === tab.id
+        ) {
           chrome.runtime.onMessage.removeListener(listener);
           resolve();
         }
       };
-    })
+
+      chrome.runtime.onMessage.addListener(listener);
+    });
     chrome.tabs.sendMessage(tab.id, { action: "start-selection" });
   }
 
