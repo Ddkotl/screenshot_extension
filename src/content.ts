@@ -11,7 +11,6 @@ declare global {
 if (window.__screenshotExtensionContentScriptLoaded) {
 } else {
     window.__screenshotExtensionContentScriptLoaded = true;
-    chrome.runtime.sendMessage({ action: "content-ready" });
     let isSelecting: boolean = false;
 
     let startX: number = 0;

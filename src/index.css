@@ -6,6 +6,10 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  --brand-color: oklch(0.77 0.16 70);
+  /* Ваш золотисто-песочный */
+  --overlay-bg: rgba(0, 0, 0, 0.5);
+  --toast-bg: rgba(31, 41, 55, 0.85);
   --background: oklch(1 0 0);
   --foreground: oklch(0.141 0.005 285.823);
   --card: oklch(1 0 0);
@@ -120,17 +124,89 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply font-sans bg-background text-foreground;
   }
+
   html {
     @apply font-sans;
   }
 }
+
 .bg-radial-primary {
-  background: radial-gradient(
-    circle at center,
-    color-mix(in oklch, var(--primary) 20%, transparent) 0%,
-    var(--background) 100%
-  );
+  background: radial-gradient(circle at center,
+      color-mix(in oklch, var(--primary) 20%, transparent) 0%,
+      var(--background) 100%);
+}
+
+/* Оверлей: глубокое затемнение с размытием фона */
+#screenshot-overlay {
+  position: fixed;
+  inset: 0;
+  cursor: crosshair;
+  background: transparent;
+  z-index: 2147483647;
+}
+
+/* Область выделения: эффект "прожектора" */
+#selection {
+  position: absolute;
+  /* Используем outline, чтобы рамка не влияла на расчет координат */
+  outline: 2px solid var(--brand-color);
+  background: transparent;
+  /* Создает эффект выреза в темном фоне */
+  box-shadow: 0 0 0 9999px var(--overlay-bg);
+  /* Чтобы клики не мешали, если нужно */
+  pointer-events: none;
+
+  /* Убираем outline, border достаточно */
+  box-sizing: border-box;
+}
+
+/* Тостер: стеклянный морфизм сверху по центру */
+.screenshot-toast {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  /* Центрирование и скрытие за верхним краем */
+  transform: translateX(-50%) translateY(-100px);
+
+  background: var(--toast-bg);
+  backdrop-filter: blur(12px) saturate(180%);
+  color: #ffffff;
+  padding: 14px 24px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  /* Элегантная тонкая граница */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 4px solid var(--brand-color);
+
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3),
+    0 8px 10px -6px rgba(0, 0, 0, 0.3);
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 2147483647;
+
+  /* Анимация появления с небольшим "отскоком" */
+  transition: transform 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  white-space: nowrap;
+}
+
+.screenshot-toast.show {
+  /* Показываем тостер (центрирование по X сохраняется) */
+  transform: translateX(-50%) translateY(0);
+}
+
+.screenshot-toast-icon {
+  color: var(--brand-color);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
