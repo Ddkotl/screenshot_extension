@@ -37,7 +37,10 @@ export default function App() {
       alert(chrome.i18n.getMessage("unsupported_page"));
       return;
     }
-
+    await chrome.scripting.insertCSS({
+      target: { tabId: tab.id },
+      files: ["content.css"],
+    });
     await chrome.scripting.executeScript({
       target: { tabId: tab.id },
       files: ["content.js"],

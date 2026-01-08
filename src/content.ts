@@ -1,4 +1,4 @@
-import "./content.css";
+import "./content.css"
 import { saveScreenshot } from "./lib/save-screenshoot";
 import { showToast } from "./lib/show-toast";
 import type { CaptureMessage } from "./types";
@@ -34,12 +34,18 @@ if (window.__screenshotExtensionContentScriptLoaded) {
             const item = new ClipboardItem({
                 [blob.type]: blob,
             });
-            await navigator.clipboard.write([item]);
+            try {
+                await navigator.clipboard.write([item]);
+            } catch {
+                showToast(chrome.i18n.getMessage("clipboard_failed"), "⚠️");
+            }
 
         }
     });
     function startSelectionMode(): void {
-        if (overlay) return;
+        if (overlay) {
+            return;
+        }
         // document.body.style.overflow = "hidden"
 
         overlay = document.createElement("div");
