@@ -34,5 +34,8 @@
   },
   "invalid_selection": {
     "message": "Please select a valid area for the screenshot."
+  },
+   "clipboard_failed": {
+    "message": "Failed to copy screenshot to clipboard."
   }
 }

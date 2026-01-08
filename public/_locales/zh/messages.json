@@ -12,5 +12,8 @@
   "unsupported_page": { "message": "此类页面不支持截图。" },
   "no_screenshots": { "message": "尚无截图。" },
   "last_screenshots": { "message": "最近的截图" },
-  "invalid_selection": { "message": "请选择有效的截图区域。" }
+  "invalid_selection": { "message": "请选择有效的截图区域。" },
+    "clipboard_failed": {
+      "message": "无法将截图复制到剪贴板。"
+    }
 }

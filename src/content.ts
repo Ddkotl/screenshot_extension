@@ -34,7 +34,11 @@ if (window.__screenshotExtensionContentScriptLoaded) {
             const item = new ClipboardItem({
                 [blob.type]: blob,
             });
-            await navigator.clipboard.write([item]);
+            try {
+                await navigator.clipboard.write([item]);
+            } catch {
+                showToast(chrome.i18n.getMessage("clipboard_failed"), "⚠️");
+            }
 
         }
     });
