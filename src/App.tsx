@@ -45,7 +45,6 @@ export default function App() {
       target: { tabId: tab.id },
       files: ["content.js"],
     });
-    console.log("[POPUP] sending start-selection to tab", tab.id);
     chrome.tabs.sendMessage(tab.id, { action: "start-selection" });
   }
 
