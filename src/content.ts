@@ -1,3 +1,4 @@
+import "./content.css"
 import { saveScreenshot } from "./lib/save-screenshoot";
 import { showToast } from "./lib/show-toast";
 import type { CaptureMessage } from "./types";
