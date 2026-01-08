@@ -21,10 +21,12 @@ if (window.__screenshotExtensionContentScriptLoaded) {
     let box: HTMLDivElement | null = null;
 
     chrome.runtime.onMessage.addListener(async (msg) => {
+        console.log("[CONTENT] message received:", msg);
         if (msg.action === "show-toast") {
             showToast(msg.message, msg.icon);
         }
         if (msg.action === "start-selection") {
+            console.log("[CONTENT] startSelectionMode()");
             startSelectionMode();
         }
         if (msg.action === "copy-image") {
@@ -43,7 +45,11 @@ if (window.__screenshotExtensionContentScriptLoaded) {
         }
     });
     function startSelectionMode(): void {
-        if (overlay) return;
+        console.log("[CONTENT] startSelectionMode ENTER");
+        if (overlay) {
+            console.log("[CONTENT] overlay already exists");
+            return;
+        }
         // document.body.style.overflow = "hidden"
 
         overlay = document.createElement("div");
@@ -54,6 +60,7 @@ if (window.__screenshotExtensionContentScriptLoaded) {
 
         overlay.appendChild(box);
         document.body.appendChild(overlay);
+        console.log("[CONTENT] overlay appended", overlay);
 
         overlay.addEventListener("mousedown", onMouseDown);
         overlay.addEventListener("mousemove", onMouseMove);
